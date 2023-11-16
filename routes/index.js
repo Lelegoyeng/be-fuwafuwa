@@ -1,12 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const genreRoutes = require("./admin/genre");
-const loginRoutes = require("./admin/login");
+const routes = {};
 
 
 // Admin Fuwafuwa
-router.use("/admin", genreRoutes);
-router.use("/admin", loginRoutes);
+routes.admin = require("./admin");
 
 
-module.exports = router;
+
+module.exports = routes;

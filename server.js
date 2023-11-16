@@ -11,7 +11,7 @@ app.get("/", (_, res) => {
     res.send({ message: "Server Is Online. :)" });
 });
 
-app.use(routes);
+routes.admin(app);
 
 app.listen(PORT, () => {
     console.log(`Server Anime berjalan di http://localhost:${PORT}`);

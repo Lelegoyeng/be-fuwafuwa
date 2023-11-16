@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const GenreController = require("../../../controllers/admin/Genre");
+const GenreController = require("../../controllers/admin/Genre");
 
 router.get("/genre", GenreController.get);
 router.post("/genre", GenreController.create);
