@@ -1,14 +1,14 @@
 const response = require('../../../utils/respons');
-
-const connectDB = require('../../../config/mongodb')
+const connectToMongo = require('../../../config/mongodb')
 
 
 exports.get = async (req, res) => {
     try {
-        console.log('aa')
+        const database = await connectToMongo();
+        const collection = database.collection("genrelist");
+        const result = await collection.find({}).toArray();
 
-        const result = ''
-        return response.success("Get Hero Success", res, result);
+        return response.success("Get GenreList Success", res, result);
     } catch (err) {
         return response.error(
             err.message || 'Invalid request',

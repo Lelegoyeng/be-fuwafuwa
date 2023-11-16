@@ -7,9 +7,6 @@ const routes = require("./routes/index");
 
 app.use(express.json());
 
-const allowedIPs = ['::ffff:192.168.0.44'];
-
-
 app.get("/", (_, res) => {
     res.send({ message: "Server Is Online. :)" });
 });
