@@ -1,5 +1,7 @@
 const response = require('../../../utils/respons');
 const connectToMongo = require('../../../config/mongodb')
+const config = require('../../../config/auth');
+const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
     try {
@@ -12,12 +14,24 @@ exports.login = async (req, res) => {
         if (!email) return response.invalidInput('Email Tidak Boleh Kosong!', res);
         if (!password) return response.invalidInput('Password Tidak Boleh Kosong!', res);
 
-        const user = await collection.findOne({ email: email, password: password });
+        let user, accessToken;
+        user = await collection.findOne({ email: email, password: password });
 
         if (!user) {
             return response.invalidInput('Email/ID Member atau password salah', res);
         }
 
+        accessToken = jwt.sign(
+            {
+                email: user.email,
+            },
+            config.accessSecret,
+            {
+                expiresIn: config.jwtExp,
+            }
+        );
+
+        console.log(accessToken)
         const result = user.email
 
         return response.success("Login Success", res, result);
