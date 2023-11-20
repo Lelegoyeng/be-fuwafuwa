@@ -17,22 +17,16 @@ exports.login = async (req, res) => {
         let user, accessToken;
         user = await collection.findOne({ email: email, password: password });
 
-        if (!user) {
-            return response.invalidInput('Email/ID Member atau password salah', res);
-        }
+        if (!user) { return response.invalidInput('Email/ID Member atau password salah', res); }
 
         accessToken = jwt.sign(
-            {
-                email: user.email,
-            },
-            config.accessSecret,
-            {
-                expiresIn: config.jwtExp,
-            }
+            { email: user.email }, config.accessSecret, { expiresIn: config.jwtExp }
         );
 
-        console.log(accessToken)
-        const result = user.email
+        const result = {
+            email: user.email,
+            access_token: accessToken
+        }
 
         return response.success("Login Success", res, result);
     } catch (err) {
